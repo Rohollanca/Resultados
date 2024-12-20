@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe de Laboratorio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resultados de Laboratorio</h1>
+        <div class="form-group">
+            <label for="colesterol">Colesterol (mg/dL):</label>
+            <input type="number" id="colesterol" placeholder="Ingresa el nivel de colesterol">
+        </div>
+        <div class="form-group">
+            <label for="trigliceridos">Triglicéridos (mg/dL):</label>
+            <input type="number" id="trigliceridos" placeholder="Ingresa el nivel de triglicéridos">
+        </div>
+        <div class="form-group">
+            <label for="hemoglobina">Hemoglobina (g/dL):</label>
+            <input type="number" id="hemoglobina" placeholder="Ingresa el nivel de hemoglobina">
+        </div>
+        <div class="form-group">
+            <label for="glucosa">Glucosa (mg/dL):</label>
+            <input type="number" id="glucosa" placeholder="Ingresa el nivel de glucosa">
+        </div>
+        <button onclick="generatePDF()">Generar Informe PDF</button>
+    </div>
+
+    <script>
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Obtener valores del formulario
+            const colesterol = document.getElementById("colesterol").value;
+            const trigliceridos = document.getElementById("trigliceridos").value;
+            const hemoglobina = document.getElementById("hemoglobina").value;
+            const glucosa = document.getElementById("glucosa").value;
+
+            // Añadir contenido al PDF
+            doc.setFontSize(16);
+            doc.text("Informe de Resultados de Laboratorio", 20, 20);
+            doc.setFontSize(12);
+            doc.text(`Colesterol: ${colesterol} mg/dL`, 20, 40);
+            doc.text(`Triglicéridos: ${trigliceridos} mg/dL`, 20, 50);
+            doc.text(`Hemoglobina: ${hemoglobina} g/dL`, 20, 60);
+            doc.text(`Glucosa: ${glucosa} mg/dL`, 20, 70);
+
+            // Guardar el PDF
+            doc.save("Informe_Laboratorio.pdf");
+        }
+    </script>
+</body>
+</html>
